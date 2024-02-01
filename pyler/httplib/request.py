@@ -6,6 +6,7 @@ class Request:
     def __init__(
             self,
             url: str,
+            *,
             callback: Optional[Callable] = None,
             method: str = 'GET',
             headers: Optional[dict] = None,

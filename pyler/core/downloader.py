@@ -35,7 +35,7 @@ class ActiveRequests:
 
 class DownloaderMeta(ABCMeta):
 
-    def __subclasshook__(self, subclass):
+    def __subclasscheck__(self, subclass):
         methods = ("fetch", "download", "create_instance", "close", "idle")
         return all(
             hasattr(subclass, method) and callable(getattr(subclass, method, None)) for method in methods
@@ -59,7 +59,7 @@ class Downloader(metaclass=DownloaderMeta):
             f"concurrency: {self.crawler.settings.getint('CONCURRENCY')}"
         )
 
-    def close(self):
+    async def close(self):
         pass
 
     async def fetch(self, request):
